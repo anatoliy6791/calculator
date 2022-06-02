@@ -1,54 +1,56 @@
 package pro.sky.calculator;
 
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+
 @Service
 public class CalculatorServiceIml implements CalculatorService {
-
-    @Override
-    public String hello() {
-        return "Hello";
-    }
 
     @Override
     public String calculator() {
         return "Добро пожаловать в калькулятор";
     }
+
     @Override
-    public String calculatorSum(Integer num1, Integer num2) {
+    public int calculatorSum(Integer num1, Integer num2) {
         if (num1 == null || num2 == null) {
-            return "Вы не ввели число";
+            throw new RuntimeException("Вы не ввели число");
         } else {
             int result = num1 + num2;
-            return num1 + "+" + num2 + "=" + result;
+            return result;
         }
     }
 
     @Override
-    public String calculatorMinus(Integer num1, Integer num2) {
+    public int calculatorMinus(Integer num1, Integer num2) {
         if (num1 == null || num2 == null) {
-            return "Вы не ввели число";
+            throw new RuntimeException ("Вы не ввели число");
         } else {
             int result = num1 - num2;
-            return num1 + "-" + num2 + "=" + result;
+            return result;
         }
     }
 
     @Override
-    public String calculatorMultiplication(Integer num1, Integer num2) {
+    public int calculatorMultiplication(Integer num1, Integer num2) {
         if (num1 == null || num2 == null) {
-            return "Вы не ввели число";
+            throw new RuntimeException ("Вы не ввели число");
         } else {
             int result = num1 * num2;
-            return num1 + "*" + num2 + "=" + result;
+            return result;
         }
     }
+
     @Override
-    public String calculatorDivision(Integer num1, Integer num2) {
+    public BigDecimal calculatorDivision(BigDecimal num1, BigDecimal num2) {
         if (num1 == null || num2 == null) {
-            return "Вы не ввели число";
+            throw new RuntimeException ("Вы не ввели число");
+        } else if (num2.equals(new BigDecimal(0))) {
+            throw new RuntimeException ("На ноль делить нельзя");
         } else {
-            int result = num1 / num2;
-            return num1 + "/" + num2 + "=" + result;
+            BigDecimal result = num1.divide(num2);
+            return result;
         }
     }
 }
