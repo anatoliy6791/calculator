@@ -1,6 +1,7 @@
 package pro.sky.calculator;
 
 import org.springframework.stereotype.Service;
+import pro.sky.calculator.exception.ZeroDivisionException;
 
 import java.math.BigDecimal;
 
@@ -13,30 +14,46 @@ public class CalculatorServiceIml implements CalculatorService {
     }
 
     @Override
-    public int calculatorSum(Integer num1, Integer num2) {
+    public int calculatorSum(Integer a, Integer b) {
+        if (a == null || b == null) {
+            throw new IllegalArgumentException("Вы не ввели число");
+        } else {
+            int result = a + b;
+            return result;
+        }
+    }
 
-            int result = num1 + num2;
+
+    @Override
+    public int calculatorMinus(Integer a, Integer b) {
+        if (a == null || b == null) {
+            throw new IllegalArgumentException("Вы не ввели число");
+        }
+
+        int result = a - b;
             return result;
         }
 
 
     @Override
-    public int calculatorMinus(Integer num1, Integer num2) {
-            int result = num1 - num2;
+    public int calculatorMultiplication(Integer a, Integer b) {
+        if (a == null || b == null) {
+            throw new IllegalArgumentException("Вы не ввели число");
+        }
+
+        int result = a * b;
             return result;
         }
 
 
     @Override
-    public int calculatorMultiplication(Integer num1, Integer num2) {
-            int result = num1 * num2;
-            return result;
+    public BigDecimal calculatorDivision(BigDecimal a, BigDecimal b) {
+        if (a == null || b == null) {
+            throw new IllegalArgumentException("Вы не ввели число");
+        } else if (b.equals(new BigDecimal(0))) {
+            throw new ZeroDivisionException("На ноль делить нельзя");
         }
-
-
-    @Override
-    public BigDecimal calculatorDivision(BigDecimal num1, BigDecimal num2) {
-            BigDecimal result = num1.divide(num2);
+        BigDecimal result = a.divide(b);
             return result;
         }
     }
